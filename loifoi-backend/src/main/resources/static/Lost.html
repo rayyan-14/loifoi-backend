@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOI-FOI | Lost Items</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: #f3f4f6;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          min-height: 100vh;
+        }
+
+        .lost-container {
+          width: 90%;
+          max-width: 1000px;
+          padding: 30px 15px;
+        }
+
+        h2 {
+          text-align: center;
+          color: #333;
+          margin-bottom: 30px;
+        }
+
+        .items-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+        }
+
+        .item-card {
+          background: white;
+          border-radius: 10px;
+          padding: 15px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-card img {
+          width: 100%;
+          height: 180px;
+          object-fit: contain;
+          border-radius: 8px;
+          margin-bottom: 10px;
+        }
+
+        .item-card h3 {
+          margin: 10px 0 5px;
+          font-size: 1.2rem;
+          color: #111;
+        }
+
+        .item-card p {
+          font-size: 0.95rem;
+          color: #444;
+          margin: 4px 0;
+        }
+
+        .expiry-badge {
+          background-color: #ffeaa7;
+          color: #6c5ce7;
+          display: inline-block;
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="lost-container">
+    <h2>Recently Found Items</h2>
+    <div class="items-grid" id="lostItemsDisplay"></div>
+</div>
+<div id="approvedItems"></div>
+
+
+<script>
+    function loadApprovedItems() {
+      fetch("http://localhost:8081/api/items/approved")
+        .then(res => res.json())
+        .then(items => {
+          const container = document.getElementById('approvedItems');
+          container.innerHTML = '';
+
+          items.forEach(item => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+              <p><b>Location:</b> ${item.location}</p>
+              <p><b>Description:</b> ${item.description}</p>
+              <p><b>Contact:</b> ${item.contact}</p>
+              <img src="${item.photo}" width="150"/>
+              <hr>
+            `;
+            container.appendChild(div);
+          });
+        });
+    }
+
+    window.onload = loadApprovedItems;
+</script>
+
+</body>
+</html>

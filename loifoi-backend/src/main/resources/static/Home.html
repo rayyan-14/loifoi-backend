@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOI-FOI | Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: 'Segoe UI', sans-serif;
+          background: linear-gradient(135deg, #fceabb, #016d25);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          text-align: center;
+        }
+
+        .home-container {
+          padding: 20px;
+          background-color: white;
+          border-radius: 15px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          width: 90%;
+          max-width: 700px;
+        }
+
+        .app-title {
+          font-size: 2.8rem;
+          margin-bottom: 10px;
+          color: #333;
+        }
+
+        .tagline {
+          font-size: 1.5rem;
+          color: #666;
+          margin-bottom: 30px;
+        }
+
+        .nav-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        .nav-buttons a {
+          padding: 20px 10px;
+          font-size: 1.5rem;
+          text-decoration: none;
+          color: white;
+          border-radius: 12px;
+          transition: background 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          height: 100px;
+        }
+
+        .nav-buttons img {
+          width: 60px;
+          height: 60px;
+          object-fit: contain;
+        }
+
+        .btn-found {
+          background-color: #28a745;
+        }
+
+        .btn-found:hover {
+          background-color: #218838;
+        }
+
+        .btn-lost {
+          background-color: #dc3545;
+        }
+
+        .btn-lost:hover {
+          background-color: #c82333;
+        }
+
+        @media (min-width: 600px) {
+          .nav-buttons {
+            flex-direction: row;
+            justify-content: center;
+          }
+          .nav-buttons a {
+            width: 48%;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="home-container">
+    <h1 class="app-title">LOI-FOI</h1>
+    <p class="tagline">Lost something? Found something? Let’s fix it.</p>
+    <div class="nav-buttons">
+        <a href="found.html" class="btn-found">
+            <img src="FOUND.png" alt="Found Icon"> I Found Something
+        </a>
+        <a href="lost.html" class="btn-lost">
+            <img src="LOST.png" alt="Lost Icon"> I Lost Something
+        </a>
+    </div>
+</div>
+</body>
+</html>

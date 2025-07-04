@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOI-FOI | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #121212;
+          color: #f1f1f1;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          min-height: 100vh;
+        }
+
+        .admin-container {
+          width: 90%;
+          max-width: 1000px;
+          padding: 30px 15px;
+        }
+
+        h2, h3 {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #ffffff;
+        }
+
+        .pending-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+        }
+
+        .card {
+          background: #1e1e1e;
+          border-radius: 10px;
+          padding: 15px;
+          box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+        }
+
+        .card img {
+          width: 100%;
+          height: 180px;
+          object-fit: contain;
+          border-radius: 8px;
+          margin-bottom: 10px;
+        }
+
+        .card h3 {
+          margin: 10px 0 5px;
+          font-size: 1.1rem;
+          color: #f1f1f1;
+        }
+
+        .card p {
+          font-size: 0.95rem;
+          margin: 4px 0;
+          color: #ccc;
+        }
+
+        .action-buttons {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+        }
+
+        .approve-btn, .reject-btn {
+          flex: 1;
+          margin: 5px;
+          padding: 10px;
+          border: none;
+          border-radius: 8px;
+          color: white;
+          cursor: pointer;
+          transition: background 0.3s;
+          font-size: 0.95rem;
+        }
+
+        .approve-btn {
+          background-color: #28a745;
+        }
+        .approve-btn:hover {
+          background-color: #218838;
+        }
+
+        .reject-btn {
+          background-color: #dc3545;
+        }
+        .reject-btn:hover {
+          background-color: #c82333;
+        }
+
+        .filter-bar {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .filter-bar input {
+          padding: 10px;
+          width: 60%;
+          max-width: 400px;
+          border: none;
+          border-radius: 8px;
+          background: #2c2c2c;
+          color: white;
+        }
+
+        .expiry-badge {
+          background-color: #ffeaa7;
+          color: #6c5ce7;
+          display: inline-block;
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h2><i class="fas fa-user-shield"></i> Admin Approval Panel</h2>
+
+    <div class="filter-bar">
+        <input type="text" id="searchBox" placeholder="Search by description or location...">
+    </div>
+
+    <div class="pending-grid" id="pendingList"></div>
+
+    <h3><i class="fas fa-check-circle"></i> Approved Items (LOST Section)</h3>
+    <div class="pending-grid" id="approvedList"></div>
+
+    <form action="/logout" method="post" style="text-align:right; margin-top: 30px;">
+        <button style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 6px;">
+            Logout
+        </button>
+    </form>
+</div>
+
+<script>
+    const authHeader = "Basic " + btoa("admin:1234");
+
+    function loadPendingItems() {
+      fetch("http://localhost:8081/api/items/pending", {
+        headers: {
+          "Authorization": authHeader
+        }
+      })
+      .then(res => res.json())
+      .then(items => {
+        const container = document.getElementById('pendingList');
+        container.innerHTML = '';
+
+        items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'card';
+          div.innerHTML = ' 
+            <img src="${item.photo}" />
+            <h3>${item.founderName}</h3>
+            <p><b>Contact:</b> ${item.contact}</p>
+            <p><b>Location:</b> ${item.location}</p>
+            <p><b>Description:</b> ${item.description}</p>
+            <div class="action-buttons">
+              <button class="approve-btn" onclick="approveItem(${item.id})">Approve</button>
+              <button class="reject-btn" onclick="deleteItem(${item.id})">Reject</button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error("Failed to load items:", err);
+      });
+    }
+
+    function loadApprovedItems() {
+      fetch("http://localhost:8081/api/items/approved")
+        .then(res => res.json())
+        .then(items => {
+          const container = document.getElementById('approvedList');
+          container.innerHTML = '';
+
+          items.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `
+              <img src="${item.photo}" />
+              <h3>${item.founderName}</h3>
+              <p><b>Contact:</b> ${item.contact}</p>
+              <p><b>Location:</b> ${item.location}</p>
+              <p><b>Description:</b> ${item.description}</p>
+              <span class="expiry-badge">Approved</span>
+            `;
+            container.appendChild(div);
+          });
+        })
+        .catch(err => {
+          console.error("Failed to load approved items:", err);
+        });
+    }
+
+    function approveItem(id) {
+      fetch(`http://localhost:8081/api/items/approve/${id}`, {
+        method: "PUT",
+        headers: {
+          "Authorization": authHeader
+        }
+      })
+      .then(() => {
+        alert("Item approved");
+        loadPendingItems();
+        loadApprovedItems(); // refresh approved list
+      })
+      .catch(err => {
+        alert("Failed to approve item.");
+        console.error(err);
+      });
+    }
+
+    function deleteItem(id) {
+      fetch(`http://localhost:8081/api/items/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": authHeader
+        }
+      })
+      .then(() => {
+        alert("Item deleted");
+        loadPendingItems();
+      })
+      .catch(err => {
+        alert("Failed to delete item.");
+        console.error(err);
+      });
+    }
+
+    window.onload = () => {
+      loadPendingItems();
+      loadApprovedItems();
+    };
+</script>
+
+</body>
+</html>

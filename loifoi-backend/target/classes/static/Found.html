@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOI-FOI | Found Item</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: #325813;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .form-container {
+          background: #ffffff;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+          width: 90%;
+          max-width: 500px;
+        }
+
+        h2 {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #333;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        input, textarea {
+          margin: 10px 0;
+          padding: 12px;
+          font-size: 1rem;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+        }
+
+        button {
+          background-color: #28a745;
+          color: white;
+          padding: 12px;
+          font-size: 1rem;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+
+        button:hover {
+          background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Found Something? Report It</h2>
+    <form id="foundForm" onsubmit="submitForm(event)">
+        <input type="text" name="founderName" placeholder="Your Name" required>
+        <input type="text" name="contact" placeholder="Contact Details" required>
+        <input type="text" name="location" placeholder="Where You Found It" required>
+        <textarea name="description" rows="4" placeholder="Describe the Item" required></textarea>
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit">Submit for Approval</button>
+    </form>
+</div>
+
+<script>
+    function submitForm(event) {
+      event.preventDefault();
+      const form = document.getElementById('foundForm');
+      const formData = new FormData(form);
+      const reader = new FileReader();
+      reader.onload = function () {
+        const item = {
+          founderName: formData.get('founderName'),
+          contact: formData.get('contact'),
+          location: formData.get('location'),
+          description: formData.get('description'),
+          photo: reader.result // base64 encoded
+        };
+        fetch("http://localhost:8081/api/items", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item)
+        }).then(res => {
+          alert(res.ok ? "Submitted!" : "Submission failed!");
+          if (res.ok) form.reset();
+        });
+      };
+      reader.readAsDataURL(formData.get('photo'));
+    }
+</script>
+</body>
+</html>

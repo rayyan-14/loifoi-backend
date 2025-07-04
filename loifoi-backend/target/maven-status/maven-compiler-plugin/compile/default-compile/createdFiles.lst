@@ -1,0 +1,4 @@
+com\example\loifoi\repository\ItemRepository.class
+com\example\loifoi\model\Item.class
+com\example\loifoi\controller\ItemController.class
+com\example\loifoi\LoifoiApplication.class
