@@ -19,6 +19,8 @@ public class ItemController {
     @PostMapping
     public Item createItem(@RequestBody Item item) {
         System.out.println("Item received: " + item);
+        item.setApproved(false);
+        item.setTimestamp(LocalDateTime.now());
         return itemRepository.save(item);
     }
 

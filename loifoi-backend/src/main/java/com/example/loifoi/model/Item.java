@@ -2,6 +2,8 @@ package com.example.loifoi.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class Item {
@@ -18,7 +20,7 @@ public class Item {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String photo;
-
+@JsonProperty(access =Access.WRITE_ONLY)
     private boolean approved = false;
 
     private LocalDateTime timestamp;

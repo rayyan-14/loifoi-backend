@@ -142,10 +142,10 @@
 </div>
 
 <script>
-    const authHeader = "Basic " + btoa("admin:1234");
+    const authHeader = "Basic " + btoa("admin:adminhumai");
 
     function loadPendingItems() {
-      fetch("http://localhost:8081/api/items/pending", {
+      fetch('http://localhost:8081/api/items/pending', {
         headers: {
           "Authorization": authHeader
         }
@@ -188,7 +188,6 @@
         alert("Item approved");
         loadPendingItems();
       })
-      .catch(err => {
       .catch(err => {
         alert("Failed to approve item.");
         console.error(err);
