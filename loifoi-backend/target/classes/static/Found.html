@@ -1,79 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LOI-FOI | Found Item</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        body {
-          font-family: 'Segoe UI', sans-serif;
-          background: #325813;
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+        * {
           margin: 0;
           padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Montserrat', sans-serif;
+          background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
           display: flex;
           justify-content: center;
           align-items: center;
           min-height: 100vh;
+          color: #fff;
+          overflow: hidden;
+          padding: 20px;
+        }
+
+        .floating-icons {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .floating-icons i {
+          position: absolute;
+          color: #ffd36933;
+          font-size: 1.7rem;
+          animation: float 14s infinite ease-in-out;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+          50% { transform: translateY(-25px) rotate(180deg); opacity: 0.6; }
+          100% { transform: translateY(0) rotate(360deg); opacity: 0.3; }
         }
 
         .form-container {
-          background: #ffffff;
-          padding: 30px;
-          border-radius: 15px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-          width: 90%;
+          position: relative;
+          z-index: 1;
+          background: rgba(30, 30, 30, 0.95);
+          padding: 40px 30px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+          width: 100%;
           max-width: 500px;
+          backdrop-filter: blur(4px);
         }
 
         h2 {
           text-align: center;
-          margin-bottom: 20px;
-          color: #333;
+          margin-bottom: 25px;
+          font-size: 2rem;
+          color: #00e676;
         }
 
         form {
           display: flex;
           flex-direction: column;
+          gap: 14px;
         }
 
         input, textarea {
-          margin: 10px 0;
-          padding: 12px;
+          padding: 14px;
           font-size: 1rem;
-          border-radius: 8px;
-          border: 1px solid #ccc;
+          border-radius: 10px;
+          border: none;
+          background-color: #2e2e2e;
+          color: #f1f1f1;
+          transition: all 0.3s ease;
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        input:focus, textarea:focus {
+          outline: none;
+          background-color: #353535;
+          box-shadow: 0 0 8px #00e67699;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+          color: #aaa;
+        }
+
+        input[type="file"] {
+          background-color: transparent;
+          padding-left: 0;
+          box-shadow: none;
         }
 
         button {
-          background-color: #28a745;
+          background: linear-gradient(to right, #00c853, #00e676);
           color: white;
-          padding: 12px;
+          padding: 14px;
           font-size: 1rem;
+          font-weight: bold;
           border: none;
-          border-radius: 8px;
+          border-radius: 10px;
           cursor: pointer;
-          transition: background 0.3s;
+          transition: background 0.3s, transform 0.2s;
         }
 
         button:hover {
-          background-color: #218838;
+          transform: scale(1.03);
+          filter: brightness(1.1);
+        }
+
+        @media (max-width: 500px) {
+          .form-container {
+            padding: 30px 20px;
+          }
         }
     </style>
 </head>
 <body>
+
+<!-- Floating Icons Background -->
+<div class="floating-icons">
+    <i class="fas fa-key" style="left: 10%; top: 20%; animation-delay: 0s;"></i>
+    <i class="fas fa-wallet" style="left: 50%; top: 40%; animation-delay: 2s;"></i>
+    <i class="fas fa-id-badge" style="left: 80%; top: 10%; animation-delay: 4s;"></i>
+    <i class="fas fa-phone" style="left: 30%; top: 70%; animation-delay: 6s;"></i>
+    <i class="fas fa-suitcase" style="left: 70%; top: 85%; animation-delay: 1s;"></i>
+    <i class="fas fa-glasses" style="left: 15%; top: 60%; animation-delay: 3s;"></i>
+    <i class="fas fa-hat-cowboy" style="left: 60%; top: 15%; animation-delay: 2.5s;"></i>
+    <i class="fas fa-book" style="left: 45%; top: 90%; animation-delay: 1.2s;"></i>
+    <i class="fas fa-puzzle-piece" style="left: 38%; top: 15%; animation-delay: 4.2s;"></i>
+</div>
+
+<!-- Form UI -->
 <div class="form-container">
     <h2>Found Something? Report It</h2>
     <form id="foundForm" onsubmit="submitForm(event)">
-        <input type="text" name="founderName" placeholder="Your Name" required>
-        <input type="text" name="contact" placeholder="Contact Details" required>
-        <input type="text" name="location" placeholder="Where You Found It" required>
+        <input type="text" name="founderName" placeholder="Your Name" required />
+        <input type="text" name="contact" placeholder="Contact Details" required />
+        <input type="text" name="location" placeholder="Where You Found It" required />
         <textarea name="description" rows="4" placeholder="Describe the Item" required></textarea>
-        <input type="file" name="photo" accept="image/*" required>
+        <input type="file" name="photo" accept="image/*" required />
         <button type="submit">Submit for Approval</button>
     </form>
 </div>
 
+<!-- Script logic remains unchanged -->
 <script>
     function submitForm(event) {
       event.preventDefault();
@@ -86,7 +167,7 @@
           contact: formData.get('contact'),
           location: formData.get('location'),
           description: formData.get('description'),
-          photo: reader.result // base64 encoded
+          photo: reader.result
         };
         fetch("http://localhost:8081/api/items", {
           method: "POST",

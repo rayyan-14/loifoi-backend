@@ -142,76 +142,77 @@
 </div>
 
 <script>
-    const authHeader = "Basic " + btoa("admin:adminhumai");
+    const authHeader = "Basic " + btoa("admin:1234"); // Update to your actual Spring Boot username/password if different
 
     function loadPendingItems() {
-      fetch('http://localhost:8081/api/items/pending', {
-        headers: {
-          "Authorization": authHeader
-        }
-      })
-      .then(res => res.json())
-      .then(items => {
-        const container = document.getElementById('pendingList');
-        container.innerHTML = '';
+        fetch("http://localhost:8081/api/items/pending", {
+            headers: {
+                "Authorization": authHeader
+            }
+        })
+        .then(res => res.json())
+        .then(items => {
+            const container = document.getElementById('pendingList');
+            container.innerHTML = '';
 
-        items.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'card';
-          div.innerHTML = `
-            <img src="${item.photo}" />
-            <h3>${item.founderName}</h3>
-            <p><b>Contact:</b> ${item.contact}</p>
-            <p><b>Location:</b> ${item.location}</p>
-            <p><b>Description:</b> ${item.description}</p>
-            <div class="action-buttons">
-              <button class="approve-btn" onclick="approveItem(${item.id})">Approve</button>
-              <button class="reject-btn" onclick="deleteItem(${item.id})">Reject</button>
-            </div>
-          `;
-          container.appendChild(div);
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.innerHTML = `
+                    <img src="${item.photo}" />
+                    <h3>${item.founderName}</h3>
+                    <p><b>Contact:</b> ${item.contact}</p>
+                    <p><b>Location:</b> ${item.location}</p>
+                    <p><b>Description:</b> ${item.description}</p>
+                    <div class="action-buttons">
+                        <button class="approve-btn" onclick="approveItem(${item.id})">Approve</button>
+                        <button class="reject-btn" onclick="deleteItem(${item.id})">Reject</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        })
+        .catch(err => {
+            console.error("Failed to load items:", err);
         });
-      })
-      .catch(err => {
-        console.error("Failed to load items:", err);
-      });
     }
 
     function approveItem(id) {
-      fetch(`http://localhost:8081/api/items/approve/${id}`, {
-        method: "PUT",
-        headers: {
-          "Authorization": authHeader
-        }
-      })
-      .then(() => {
-        alert("Item approved");
-        loadPendingItems();
-      })
-      .catch(err => {
-        alert("Failed to approve item.");
-        console.error(err);
-      });
+        fetch(`http://localhost:8081/api/items/approve/${id}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": authHeader
+            }
+        })
+        .then(() => {
+            alert("Item approved");
+            loadPendingItems();
+        })
+        .catch(err => {
+            alert("Failed to approve item.");
+            console.error(err);
+        });
     }
 
     function deleteItem(id) {
-      fetch(`http://localhost:8081/api/items/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": authHeader
-        }
-      })
-      .then(() => {
-        alert("Item deleted");
-        loadPendingItems();
-      })
-      .catch(err => {
-        alert("Failed to delete item.");
-        console.error(err);
-      });
+        fetch(`http://localhost:8081/api/items/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": authHeader
+            }
+        })
+        .then(() => {
+            alert("Item deleted");
+            loadPendingItems();
+        })
+        .catch(err => {
+            alert("Failed to delete item.");
+            console.error(err);
+        });
     }
 
     window.onload = loadPendingItems;
 </script>
+
 </body>
 </html>

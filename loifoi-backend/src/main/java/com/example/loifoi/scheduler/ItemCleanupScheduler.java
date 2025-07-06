@@ -15,10 +15,9 @@ public class ItemCleanupScheduler {
     @Autowired
     private ItemRepository itemRepository;
 
-    // Runs every day at 12:00 AM
     @Scheduled(cron = "0 0 12 * * ?")
     public void deleteOldItems() {
-        LocalDateTime cutoffDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime cutoffDate = LocalDateTime.now().minusDays(7);
         List<Item> allItems = itemRepository.findAll();
 
         for (Item item : allItems) {

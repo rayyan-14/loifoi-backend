@@ -1,38 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LOI-FOI | Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        body {
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+        * {
           margin: 0;
           padding: 0;
-          font-family: 'Segoe UI', sans-serif;
-          background: linear-gradient(to right, #1d4350, #a43931);
-          min-height: 100vh;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Montserrat', sans-serif;
+          background: linear-gradient(135deg, #101820, #1a1a1a);
+          color: #f4f4f4;
+          height: 100vh;
           display: flex;
-          flex-direction: column;
+          justify-content: center;
           align-items: center;
-          color: white;
+          overflow: hidden;
+        }
+
+        .floating-icons {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          z-index: 0;
+        }
+
+        .floating-icons i {
+          position: absolute;
+          color: #ffd36933;
+          font-size: 1.5rem;
+          animation: float 12s infinite ease-in-out;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+          50% { transform: translateY(-30px) rotate(180deg); opacity: 0.6; }
+          100% { transform: translateY(0) rotate(360deg); opacity: 0.3; }
         }
 
         .login-container {
-          background-color: #1f1f1f;
+          z-index: 1;
+          background: #1a1a1a;
           padding: 50px 40px;
           border-radius: 20px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-          width: 90%;
-          max-width: 450px;
+          box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
           text-align: center;
-          margin-top: 60px;
+          width: 90%;
+          max-width: 420px;
+          backdrop-filter: blur(4px);
+          border: 1px solid #2e2e2e;
         }
 
         .login-container h2 {
-          margin-bottom: 35px;
-          font-size: 2.2rem;
-          color: #ffeaa7;
+          font-size: 2.3rem;
+          color: #ffd369;
+          margin-bottom: 25px;
+          letter-spacing: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
         }
 
         .login-btn {
@@ -40,59 +77,91 @@
           align-items: center;
           justify-content: center;
           width: 100%;
-          padding: 18px;
-          margin: 15px 0;
+          padding: 15px;
+          margin: 12px 0;
           border: none;
           border-radius: 12px;
-          font-size: 1.1rem;
-          font-weight: 500;
+          font-size: 1rem;
+          font-weight: 600;
           color: white;
-          background-color: #6c5ce7;
+          background-color: #222831;
+          transition: 0.3s ease;
           cursor: pointer;
-          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .login-btn:hover {
-          background-color: #5a4cd1;
-          transform: scale(1.03);
+          background-color: #393e46;
+          transform: scale(1.05);
         }
 
         .admin-btn {
-          background-color: #e17055;
+          background: linear-gradient(to right, #ff5722, #ff784e);
         }
 
         .admin-btn:hover {
-          background-color: #d35400;
+          background: linear-gradient(to right, #ff7043, #ff8c66);
         }
 
         .icon {
           margin-right: 10px;
-          font-size: 1.3rem;
+          font-size: 1.2rem;
         }
 
         .dev-link-btn {
-          background-color: #00cec9;
+          background: linear-gradient(to right, #00adb5, #00cfd1);
         }
 
         .dev-link-btn:hover {
-          background-color: #00b894;
+          filter: brightness(1.2);
         }
 
-        .footer-btn {
-          margin-top: 30px;
-          margin-bottom: 50px;
+        @media screen and (max-width: 480px) {
+          .login-container {
+            padding: 35px 25px;
+          }
+          .login-container h2 {
+            font-size: 1.8rem;
+          }
         }
     </style>
 </head>
 <body>
+
+<!-- Floating Icons Background -->
+<div class="floating-icons">
+    <i class="fas fa-key" style="left: 10%; top: 20%; animation-delay: 0s;"></i>
+    <i class="fas fa-wallet" style="left: 50%; top: 40%; animation-delay: 2s;"></i>
+    <i class="fas fa-id-badge" style="left: 80%; top: 10%; animation-delay: 4s;"></i>
+    <i class="fas fa-phone" style="left: 30%; top: 70%; animation-delay: 6s;"></i>
+    <i class="fas fa-suitcase" style="left: 70%; top: 85%; animation-delay: 1s;"></i>
+    <i class="fas fa-glasses" style="left: 15%; top: 60%; animation-delay: 3s;"></i>
+    <i class="fas fa-hat-cowboy" style="left: 60%; top: 15%; animation-delay: 2.5s;"></i>
+    <i class="fas fa-shopping-bag" style="left: 25%; top: 30%; animation-delay: 5s;"></i>
+    <i class="fas fa-book" style="left: 45%; top: 90%; animation-delay: 1.2s;"></i>
+    <i class="fas fa-compass" style="left: 85%; top: 55%; animation-delay: 3.5s;"></i>
+    <i class="fas fa-socks" style="left: 5%; top: 75%; animation-delay: 1.8s;"></i>
+    <i class="fas fa-puzzle-piece" style="left: 38%; top: 15%; animation-delay: 4.2s;"></i>
+</div>
+
 <div class="login-container">
-    <h2><i class="fas fa-door-open"></i> LOI-FOI</h2>
-    <button class="login-btn" onclick="window.location.href='home.html'"><i class="fas fa-user icon"></i> User Section</button>
+    <h2><i class="fas fa-search-location"></i> LOI-FOI</h2>
+
+    <button class="login-btn" onclick="window.location.href='home.html'">
+        <i class="fas fa-user icon"></i> User Section
+    </button>
+
     <button class="login-btn admin-btn" onclick="window.location.href='adminlogin.html'">
         <i class="fas fa-user-shield icon"></i> Admin Login
     </button>
+
     <div class="footer-btn">
-        <!--<button class="login-btn dev-link-btn" onclick="location.href='file://D:\LOSTnFOUND\LOSTnFOUND\Home.htmldeveloperpage.html'"><i class="fas fa-code icon"></i> Meet the Developers</button> -->
+        <!-- Optional: Developer button (uncomment if needed) -->
+        <!--
+        <button class="login-btn dev-link-btn" onclick="window.location.href='developerpage.html'">
+          <i class="fas fa-code icon"></i> Meet the Developers
+        </button>
+        -->
     </div>
 </div>
 </body>
