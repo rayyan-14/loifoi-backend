@@ -16,3 +16,5 @@ A Spring Boot + MySQL backend system to manage lost and found item reports with 
 - Spring Data JPA
 - MySQL
 - HTML + JavaScript (basic)
+
+# application.properties has been removed to save the credentials

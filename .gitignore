@@ -1,20 +1,9 @@
-# Ignore target build output
 /target/
-
-# IntelliJ files
 .idea/
 *.iml
-
-# Logs
 *.log
-
-# OS-specific
 .DS_Store
 Thumbs.db
-
-# Maven / Gradle
 .mvn/
 build/
-
-# Ignore credentials
 src/main/resources/application.properties
