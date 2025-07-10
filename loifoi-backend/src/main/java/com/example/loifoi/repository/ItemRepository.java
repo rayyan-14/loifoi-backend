@@ -11,4 +11,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByApproved(boolean approved);
     List<Item> findByApprovedIsTrueAndTimestampAfter(LocalDateTime time);
+    List<Item> findByApprovedTrueOrderByTimestampDesc();
+
 }

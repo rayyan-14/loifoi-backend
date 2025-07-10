@@ -44,7 +44,7 @@ public class ItemController {
 
     @GetMapping("/approved")
     public List<Item> getApprovedItems() {
-        LocalDateTime cutoff = LocalDateTime.now().minusDays(30);
-        return itemRepository.findByApprovedIsTrueAndTimestampAfter(cutoff);
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(7);
+        return itemRepository.findByApprovedTrueOrderByTimestampDesc();
     }
 }
