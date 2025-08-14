@@ -6,7 +6,7 @@ A Spring Boot + MySQL backend system to manage lost and found item reports with 
 
 - REST APIs for item upload, review, delete, and approval
 - Spring Security (HTTP Basic) for admin access
-- Scheduled task to auto-expire entries after 7 days (cam be changed as well)
+- Scheduled task to auto-expire entries after 7 days (can be changed as well)
 - Base64 image handling and timestamp logging
 - Connected HTML/JS frontend via fetch()
 
