@@ -137,7 +137,6 @@
 </head>
 <body>
 
-<!-- Floating Icons -->
 <div class="floating-icons">
     <i class="fas fa-key" style="left: 10%; top: 20%; animation-delay: 0s;"></i>
     <i class="fas fa-wallet" style="left: 50%; top: 40%; animation-delay: 2s;"></i>
@@ -153,13 +152,11 @@
     <i class="fas fa-puzzle-piece" style="left: 38%; top: 15%; animation-delay: 4.2s;"></i>
 </div>
 
-<!-- Content -->
 <div class="lost-container">
     <h2>Recently Found Items</h2>
     <div class="items-grid" id="lostItemsDisplay"></div>
 </div>
 
-<!-- JavaScript -->
 <script>
     function loadApprovedItems() {
       fetch("http://localhost:8081/api/items/approved")
