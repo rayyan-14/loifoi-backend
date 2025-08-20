@@ -1,7 +1,6 @@
 *.java linguist-detectable=true
-*.html linguist-detectable=false
-*.css linguist-detectable=false
-*.js linguist-detectable=false
+mvnw linguist-detectable=false
+mvnw.cmd linguist-detectable=false
+.mvn/** linguist-detectable=false
 *.sh linguist-detectable=false
 *.pl linguist-detectable=false
-*.md linguist-detectable=false
