@@ -1,6 +1,18 @@
+# Tell Linguist to only count Java files
 *.java linguist-detectable=true
+
+# Ignore Maven wrapper + config
 mvnw linguist-detectable=false
 mvnw.cmd linguist-detectable=false
-.mvn/** linguist-detectable=false
+.mvn/* linguist-detectable=false
+
+# Ignore resources (if any HTML/CSS/JS)
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+
+# Ignore scripts
 *.sh linguist-detectable=false
+
+# Ignore Perl false positives
 *.pl linguist-detectable=false
