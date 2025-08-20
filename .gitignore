@@ -1,9 +1,0 @@
-/target/
-.idea/
-*.iml
-*.log
-.DS_Store
-Thumbs.db
-.mvn/
-build/
-src/main/resources/application.properties
