@@ -142,7 +142,7 @@
 </div>
 
 <script>
-    const authHeader = "Basic " + btoa("admin:1234"); // Update to your actual Spring Boot username/password if different
+    const authHeader = "Basic " + btoa("admin:1234");
 
     function loadPendingItems() {
         fetch("http://localhost:8081/api/items/pending", {
