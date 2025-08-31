@@ -75,7 +75,7 @@ This project demonstrates **secure backend development** with authentication, da
 
 ---
 
-## 👤 Author
+## Author
 
 **Rayyan Hanchanal**  
 [GitHub](https://github.com/rayyan-14) | [LinkedIn](https://linkedin.com/in/rayyan-mh)  
